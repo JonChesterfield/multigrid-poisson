@@ -1,14 +1,25 @@
 # Standard make variables for C Compiler
-CC=clang
+CC=/home/jon/llvm-install/bin/clang
 CFLAGS = -Wall -g -std=c17 -O3
 
 # Standard make variables for C++ Compiler
-CXX=clang++
+CXX=/home/jon/llvm-install/bin/clang++
 CXXFLAGS = -Wall -g -std=c++17 -O3
 
+LLVMPATH = /home/jon/llvm-install
+
+
 # OpenMP related flags
-OMPFLAGS = -fopenmp -foffload-lto
+
+# -nogpulib -L$(LLVMPATH)/lib/libomptarget.devicertl.a
+
+# foffload-lto should be a nop
+OMPFLAGS = -fopenmp --offload-arch=gfx1010 -nogpulib
+
+# OMPFLAGS = -fopenmp
+
 CFLAGS += $(OMPFLAGS)
 CXXFLAGS += $(OMPFLAGS)
 LDFLAGS +=  -Wl,-rpath,$(LLVMPATH)/lib/
+LDFLAGS += $(LLVMPATH)/lib/libomptarget.devicertl.a
 LDFLAGS +=  -L$(LLVMPATH)/lib -lomptarget -L$(LLVMPATH)/lib -lomp 
