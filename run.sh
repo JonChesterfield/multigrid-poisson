@@ -1,3 +1,5 @@
+mkdir -p lib bin
+
 make realclean COMPILER=clang GPU=gfx1010
 
 make COMPILER=clang GPU=gfx1010
