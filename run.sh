@@ -1,7 +1,11 @@
 mkdir -p lib bin
 
-make realclean COMPILER=clang GPU=gfx1010
+export COMPILER=clang
 
-make COMPILER=clang GPU=gfx1010
+export GPU=gfx1030
+
+make realclean
+
+make
 
 ./bin/mixed -x 513 -y 513 -z 1025 -levels 7 -maxiter 7

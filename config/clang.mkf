@@ -1,12 +1,12 @@
+LLVMPATH = /home/amd/rocm/aomp/
+
 # Standard make variables for C Compiler
-CC=/home/jon/llvm-install/bin/clang
+CC=$(LLVMPATH)/bin/clang
 CFLAGS = -Wall -g -std=c17 -O3
 
 # Standard make variables for C++ Compiler
-CXX=/home/jon/llvm-install/bin/clang++
+CXX=$(LLVMPATH)/bin/clang++
 CXXFLAGS = -Wall -g -std=c++17 -O3
-
-LLVMPATH = /home/jon/llvm-install
 
 
 # OpenMP related flags
@@ -14,12 +14,13 @@ LLVMPATH = /home/jon/llvm-install
 # -nogpulib -L$(LLVMPATH)/lib/libomptarget.devicertl.a
 
 # foffload-lto should be a nop
-OMPFLAGS = -fopenmp --offload-arch=gfx1010 -nogpulib
+# nogpulib is broken on aomp
+OMPFLAGS = -fopenmp -nogpulib
 
-# OMPFLAGS = -fopenmp
+OMPFLAGS = -fopenmp
 
 CFLAGS += $(OMPFLAGS)
 CXXFLAGS += $(OMPFLAGS)
 LDFLAGS +=  -Wl,-rpath,$(LLVMPATH)/lib/
-LDFLAGS += $(LLVMPATH)/lib/libomptarget.devicertl.a
+# LDFLAGS += $(LLVMPATH)/lib/libomptarget.devicertl.a
 LDFLAGS +=  -L$(LLVMPATH)/lib -lomptarget -L$(LLVMPATH)/lib -lomp 
