@@ -2,7 +2,7 @@ mkdir -p lib bin
 
 export COMPILER=clang
 
-export GPU=gfx1030
+export GPU=gfx906
 
 make realclean
 

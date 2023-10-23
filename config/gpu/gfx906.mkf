@@ -5,7 +5,8 @@ endif
 
 ifeq ("$(COMPILER)","clang")
 GPU_ARCH = gfx906
-TARGETFLAGS = --offload-arch=$(GPU_ARCH)
+# There's some logic for setting PEER2PEER outside of this hack
+TARGETFLAGS = --offload-arch=$(GPU_ARCH) -DPEER2PEER
 CFLAGS+=$(TARGETFLAGS)
 CXXFLAGS+=$(TARGETFLAGS)
 endif
